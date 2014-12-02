@@ -65,13 +65,13 @@ def try_appmenu_interface(window_id):
 
   dmenu_cmd = subprocess.Popen(['dmenu', '-i', '-l', '10'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
   dmenu_cmd.stdin.write(dmenu_string.encode('utf-8'))
-  dmenu_result = dmenu_cmd.communicate()[0].decode('utf8')
+  dmenu_result = dmenu_cmd.communicate()[0].decode('utf8').strip()
   dmenu_cmd.stdin.close()
 
   # --- Use dmenu result
   if dmenu_result in dbusmenu_item_dict:
     action = dbusmenu_item_dict[dmenu_result]
-    print(dbusmenu_object_iface.Event(action, 'clicked', 0, 0))
+    result = dbusmenu_object_iface.Event(action, 'clicked', 0, 0)
 
 
 """
@@ -138,7 +138,7 @@ def try_gtk_interface(gtk_bus_name_cmd, gtk_object_path_cmd):
 
   dmenu_cmd = subprocess.Popen(['dmenu', '-i', '-l', '10'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
   dmenu_cmd.stdin.write(dmenu_string.encode('utf-8'))
-  dmenu_result = dmenu_cmd.communicate()[0].decode('utf8')
+  dmenu_result = dmenu_cmd.communicate()[0].decode('utf8').strip()
   dmenu_cmd.stdin.close()
 
   # --- Use dmenu result
